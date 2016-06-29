@@ -76,6 +76,7 @@ const options = {
   center: { lat: -34.397, lng: 150.644 },
   zoom: 3
 }
+GoogleMapsLoader.KEY = 'AIzaSyBGzmkd6vVoLbnULUrXOHynKsScQu6DUT4'
 GoogleMapsLoader.load(google => {
   const map = new google.maps.Map(dom, options)
   initMap(google, map)
