@@ -30,6 +30,7 @@ function requestData(lat, lng, next) {
 }
 
 let oldMarker = undefined
+let infowindow = undefined
 
 function initMap(google, map) {
   const showWeather = event => {
@@ -43,10 +44,15 @@ function initMap(google, map) {
       map: map
     })
     oldMarker = marker
-    const defaultWindow = new google.maps.InfoWindow({
-      content: '<h3>Weather data is loading</h3>'
-    })
-    defaultWindow.open(map, marker)
+    if (!infowindow) {
+      infowindow = new google.maps.InfoWindow({
+        content: generateContentStr('<h3>Loading Weather data......</</h3>')
+      })
+    } else {
+      infowindow.setContent('<h3>Loading Weather data......</h3>')
+    }
+    infowindow.open(map, marker)
+
     requestData(lat, lng, data => {
       const {
         name,
@@ -61,11 +67,7 @@ function initMap(google, map) {
         (weather[0] ?  weather[0].description : undefined ) :
         undefined
 
-      const infowindow = new google.maps.InfoWindow({
-        content: generateContentStr(name, description, temp)
-      })
-      defaultWindow.close()
-      infowindow.open(map, marker)
+      infowindow.setContent(generateContentStr(name, description, temp))
     })
   }
   google.maps.event.addListener(map, 'click', showWeather)
