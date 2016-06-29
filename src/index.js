@@ -74,7 +74,7 @@ function initMap(google, map) {
 const dom = document.getElementById('app')
 const options = {
   center: { lat: -34.397, lng: 150.644 },
-  zoom: 2
+  zoom: 3
 }
 GoogleMapsLoader.load(google => {
   const map = new google.maps.Map(dom, options)
